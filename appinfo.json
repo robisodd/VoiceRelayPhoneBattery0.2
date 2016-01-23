@@ -1,0 +1,48 @@
+{
+    "appKeys": {
+        "KEY_BATT": 5,
+        "KEY_BEEP": 1,
+        "KEY_ERR": 99,
+        "KEY_OPTIONS": 4,
+        "KEY_SPEAK": 2,
+        "KEY_SYS": 0,
+        "KEY_VOICES": 3
+    },
+    "capabilities": [
+        "configurable"
+    ],
+    "companyName": "robisodd",
+    "longName": "Voice Relay 0.2",
+    "projectType": "native",
+    "resources": {
+        "media": [
+            {
+                "file": "images/cursor.png",
+                "name": "CURSOR",
+                "type": "bitmap"
+            },
+            {
+                "file": "images/male.png",
+                "name": "MALE",
+                "type": "bitmap"
+            },
+            {
+                "file": "images/female.png",
+                "name": "FEMALE",
+                "type": "bitmap"
+            }
+        ]
+    },
+    "sdkVersion": "3",
+    "shortName": "Voice Relay",
+    "targetPlatforms": [
+        "aplite",
+        "basalt",
+        "chalk"
+    ],
+    "uuid": "04c28d67-e661-4388-a347-0b7e02e6ddac",
+    "versionLabel": "0.1",
+    "watchapp": {
+        "watchface": false
+    }
+}
