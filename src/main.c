@@ -334,7 +334,7 @@ void set_text(char *str, uint8_t text_color, uint8_t bgcolor) {
 }
 
 uint8_t cursor=0;
-#define CURSOR_MAX 3
+#define CURSOR_MAX 4
 char *speedtext[3]={"1", "1.5", "2"};
 uint8_t speed = 0;
 char *pitchtext[3]={"0", "1", "2"};
@@ -368,6 +368,14 @@ void sl_click_handler  (ClickRecognizerRef recognizer, void *context) { // SELEC
     pitch++;
     if(pitch>2)
       pitch=0;
+    break;
+    
+    case 3:
+    speak(dictation_text);
+    break;
+    
+    case 4:
+    dictation_session_start(dictation_session);
     break;
     
   }
@@ -461,34 +469,40 @@ void main_layer_update(Layer *me, GContext *ctx) {
     "\n\"Hello World!\""
     "";
   GRect rect = GRect(IF_CHALK_ELSE(32, 16), IF_CHALK_ELSE(32, 0), size.w-16, 16);
-  rect = GRect(0, IF_CHALK_ELSE(32, 15), size.w, 16);
+  rect = GRect(0, 8, size.w, 16);
   graphics_context_set_text_color(ctx, (cursor==0)?BGColor:FGColor);
   graphics_context_set_fill_color(ctx, (cursor==0)?FGColor:BGColor);
   graphics_fill_rect(ctx, rect, 0, GCornerNone);
   graphics_draw_text(ctx, voices[voice_choice], fonts_get_system_font(FONT_KEY_GOTHIC_14_BOLD), rect, GTextOverflowModeTrailingEllipsis, GTextAlignmentCenter, NULL);
   rect.origin.y += 20;
 
-  rect = GRect((size.w/2)-65, rect.origin.y, 60, 16);
+  rect = GRect((size.w/2)-65, rect.origin.y, 60, 17);
   graphics_context_set_text_color(ctx, (cursor==1)?BGColor:FGColor);
   graphics_context_set_fill_color(ctx, (cursor==1)?FGColor:BGColor);
   graphics_fill_rect(ctx, rect, 0, GCornerNone);
   snprintf(text_to_draw, sizeof(text_to_draw), "Speed: %s", speedtext[speed]);
   graphics_draw_text(ctx, text_to_draw, fonts_get_system_font(FONT_KEY_GOTHIC_14_BOLD), rect, GTextOverflowModeTrailingEllipsis, GTextAlignmentLeft, NULL);
 
-  rect=GRect((size.w/2)+15, rect.origin.y, 55, 16);
+  rect=GRect((size.w/2)+15, rect.origin.y, 55, 17);
   graphics_context_set_text_color(ctx, (cursor==2)?BGColor:FGColor);
   graphics_context_set_fill_color(ctx, (cursor==2)?FGColor:BGColor);
   graphics_fill_rect(ctx, rect, 0, GCornerNone);
   snprintf(text_to_draw, sizeof(text_to_draw), "Pitch: %s", pitchtext[pitch]);
   graphics_draw_text(ctx, text_to_draw, fonts_get_system_font(FONT_KEY_GOTHIC_14_BOLD), rect, GTextOverflowModeTrailingEllipsis, GTextAlignmentLeft, NULL);
 
-  rect=GRect((size.w/2)+15, rect.origin.y, 55, 16);
-  graphics_context_set_text_color(ctx, (cursor==2)?BGColor:FGColor);
-  graphics_context_set_fill_color(ctx, (cursor==2)?FGColor:BGColor);
+  rect.origin.y += 20;
+  rect=GRect((size.w/2) - 32, rect.origin.y, 64, 17);
+  graphics_context_set_text_color(ctx, (cursor==3)?BGColor:FGColor);
+  graphics_context_set_fill_color(ctx, (cursor==3)?FGColor:BGColor);
   graphics_fill_rect(ctx, rect, 0, GCornerNone);
+  graphics_draw_text(ctx, "[SPEAK]", fonts_get_system_font(FONT_KEY_GOTHIC_14_BOLD), rect, GTextOverflowModeWordWrap, GTextAlignmentCenter, NULL);
   
-  graphics_draw_text(ctx, dictation_text, fonts_get_system_font(FONT_KEY_GOTHIC_14_BOLD), rect, GTextOverflowModeTrailingEllipsis, GTextAlignmentLeft, NULL);
-
+  rect.origin.y += 20;
+  rect=GRect(16, rect.origin.y, size.w - 32, 60);
+  graphics_context_set_text_color(ctx, (cursor==4)?BGColor:FGColor);
+  graphics_context_set_fill_color(ctx, (cursor==4)?FGColor:BGColor);
+  graphics_fill_rect(ctx, rect, 0, GCornerNone);
+  graphics_draw_text(ctx, dictation_text, fonts_get_system_font(FONT_KEY_GOTHIC_14_BOLD), rect, GTextOverflowModeWordWrap, GTextAlignmentCenter, NULL);
   
   //graphics_draw_text(ctx, mainmenustring, fonts_get_system_font(FONT_KEY_GOTHIC_14_BOLD), GRect(IF_CHALK_ELSE(32, 16), IF_CHALK_ELSE(32, 0), size.w-16, size.h), GTextOverflowModeTrailingEllipsis, GTextAlignmentLeft, NULL);
     
