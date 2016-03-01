@@ -12,6 +12,7 @@
         "configurable"
     ],
     "companyName": "robisodd",
+    "enableMultiJS": false,
     "longName": "Voice Relay 0.2",
     "projectType": "native",
     "resources": {
